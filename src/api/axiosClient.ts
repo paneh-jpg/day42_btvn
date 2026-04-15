@@ -2,7 +2,9 @@ import axios from "axios";
 import { getAccessToken } from "../utils/token";
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    "https://k305jhbh09.execute-api.ap-southeast-1.amazonaws.com",
   headers: {
     "Content-Type": "application/json",
   },
@@ -15,7 +17,7 @@ axiosClient.interceptors.request.use(
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
+    console.log("BASE URL:", import.meta.env.VITE_API_URL);
     return config;
   },
   (error) => {
